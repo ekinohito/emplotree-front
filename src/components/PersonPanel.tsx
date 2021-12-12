@@ -8,32 +8,37 @@ import {
 } from "@mui/material";
 import Avatar from "boring-avatars";
 import usePerson from "src/hooks/usePerson";
+import { JwtString } from "src/types/JwtString";
 import { Person } from "src/types/Person";
 import isPersonFull from "src/utils/isPersonFull";
+import PersonAvatarAndName from "./PersonAvatarAndName";
 import PersonDescription from "./PersonDescription";
 
-export default function PersonPanel({ person }: { person: Person }) {
-    const { status, personFull, request } = usePerson(person.id);
+export default function PersonPanel({
+    person,
+    jwt,
+}: {
+    person: Person;
+    jwt: JwtString;
+}) {
+    const { status, personFull, request } = usePerson(person.id, jwt);
     return (
         <div>
             <Accordion
                 onChange={() =>
                     !isPersonFull(person) &&
-                    status === "unrequested" &&
+                    (status === "unrequested" || status === "rejected") &&
                     request()
                 }
             >
                 <AccordionSummary>
-                    <Stack spacing={2} direction="row" alignItems="center">
-                        <Avatar name={person.name} variant="beam"/>
-                        <Typography variant="h6">{person.name}</Typography>
-                    </Stack>
+                    <PersonAvatarAndName person={person} />
                 </AccordionSummary>
                 <AccordionDetails>
                     {person.infoComplete ? (
                         person.details
-                    ) : status === "fulfilled" ? (
-                        <PersonDescription person={personFull!} />
+                    ) : status === "fulfilled" && personFull != undefined ? (
+                        <PersonDescription person={personFull} jwt={jwt} />
                     ) : (
                         <CircularProgress />
                     )}

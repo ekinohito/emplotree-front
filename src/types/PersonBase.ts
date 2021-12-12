@@ -1,7 +1,7 @@
-import { PersonID } from "./PersonID";
+import { PersonId } from "./PersonId";
 
 export default interface PersonBase {
-    id: PersonID
+    id: PersonId
     infoComplete: boolean
     name: string
 }
