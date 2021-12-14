@@ -12,7 +12,6 @@ import {
     Toolbar,
     Typography,
 } from "@mui/material";
-import Avatar from "boring-avatars";
 import type { NextPage } from "next";
 import Head from "next/head";
 import React, { useState } from "react";
@@ -41,16 +40,28 @@ const Home: NextPage = () => {
                         Emplotree
                     </Typography>
                     {!loggedIn ? (
-                        <Button
-                            variant="contained"
-                            onClick={() => setLoginDialogOpen(true)}
-                        >
-                            Login
-                        </Button>
+                        <>
+                            <Button
+                                variant="contained"
+                                onClick={() => setLoginDialogOpen(true)}
+                            >
+                                Login
+                            </Button>
+                            <Button
+                                variant="contained"
+                                onClick={() => setLoginDialogOpen(true)}
+                            >
+                                Register
+                            </Button>
+                        </>
                     ) : (
                         <>
                             <PersonAvatarAndName person={person} />
-                            <Button variant="contained" color="error" onClick={logout}>
+                            <Button
+                                variant="contained"
+                                color="error"
+                                onClick={logout}
+                            >
                                 Logout
                             </Button>
                         </>
