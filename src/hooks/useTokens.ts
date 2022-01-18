@@ -11,6 +11,9 @@ export enum Tokens {
     REGISTER_PROMPT,
     LOGOUT,
     LOGIN_FIRST,
+    ADD_CONNECTION,
+    SEARCH,
+    ADD,
 }
 
 export type Token = keyof typeof Tokens
@@ -37,7 +40,10 @@ const DICTIONARY: Dictionary = {
         PASSWORD: "password",
         REGISTER: "register",
         REGISTER_PROMPT: "Fill the fields below to register a new account",
-        LOGIN_FIRST: "You must log in before you can see anything"
+        LOGIN_FIRST: "You must log in before you can see anything",
+        ADD_CONNECTION: "Add subordinary",
+        SEARCH: "search",
+        ADD: "add"
     },
     ru: {
         EMAIL: "e-mail",
@@ -49,7 +55,10 @@ const DICTIONARY: Dictionary = {
         PASSWORD: "пароль",
         REGISTER: "регистрация",
         REGISTER_PROMPT: "Для регистрации заполните форму ниже",
-        LOGIN_FIRST: "Сначала войдите или зарегистрируйтесь"
+        LOGIN_FIRST: "Сначала войдите или зарегистрируйтесь",
+        ADD_CONNECTION: "Добавить подчиненного",
+        SEARCH: "поиск",
+        ADD: "добавить",
     }
 }
 
