@@ -14,16 +14,23 @@ import {
 } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginDialog from "src/components/LoginDialog";
 import PersonAvatarAndName from "src/components/PersonAvatarAndName";
 import PersonPanel from "src/components/PersonPanel";
+import RegisterDialog from "src/components/RegisterDialog";
 import useLogin from "src/hooks/useLogin";
+import useRegister from "src/hooks/useRegister";
 
 const Home: NextPage = () => {
     const { jwt, person, login, logout } = useLogin();
+    const { status, register } = useRegister(login);
     const [loginDialogOpen, setLoginDialogOpen] = useState(false);
+    const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
     const loggedIn = jwt != null && person != null;
+    useEffect(() => {
+        console.log({jwt})
+    }, [jwt])
     return (
         <div>
             <Head>
@@ -49,7 +56,7 @@ const Home: NextPage = () => {
                             </Button>
                             <Button
                                 variant="contained"
-                                onClick={() => setLoginDialogOpen(true)}
+                                onClick={() => setRegisterDialogOpen(true)}
                             >
                                 Register
                             </Button>
@@ -72,6 +79,11 @@ const Home: NextPage = () => {
                 open={loginDialogOpen}
                 onClose={() => setLoginDialogOpen(false)}
                 login={login}
+            />
+            <RegisterDialog
+                open={registerDialogOpen}
+                onClose={() => setRegisterDialogOpen(false)}
+                register={register}
             />
             <Container sx={{ paddingTop: 4 }}>
                 {loggedIn && <PersonPanel person={person} jwt={jwt} />}

@@ -3,11 +3,12 @@ import useApi from "./useApi"
 
 export default function useLogin() {
     const { status, data, fetch, clear } = useApi()
-    const { jwt, person } = isLoginResponse(data) && data || {jwt: null, person: null}
+    const { jwt, person } = data || {jwt: null, person: null} // isLoginResponse(data) && data || {jwt: null, person: null}
     return {
         async login(email: string, password: string) {
-            fetch("/api/login", {
+            fetch(`${process.env.NEXT_PUBLIC_API}/auth/login`, {
                 method: "POST",
+                headers: {"Content-Type": "application/json; charset=utf-8"},
                 body: JSON.stringify({ email, password })
             })
         },

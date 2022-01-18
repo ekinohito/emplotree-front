@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function useApi() {
     const [status, setStatus] = useState<"unrequested" | "fulfilled" | "pending" | "rejected">("unrequested")
     const [data, setData] = useState<any>(null)
+    const [error, setError] = useState<any>(null)
     return {
         async fetch(input: RequestInfo, init?: RequestInit) {
             setStatus("pending")
@@ -11,7 +12,8 @@ export default function useApi() {
                 const data = await res.json()
                 setData(data)
                 setStatus("fulfilled")
-            } catch {
+            } catch (e) {
+                setError(e)
                 setStatus("rejected")
             }
         },
@@ -20,6 +22,7 @@ export default function useApi() {
             setData(null)
         },
         status,
-        data
+        data,
+        error
     }
 }

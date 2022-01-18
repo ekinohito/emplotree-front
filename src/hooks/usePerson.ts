@@ -8,11 +8,11 @@ import useApi from "./useApi";
 export default function usePerson(id: PersonId, jwt: JwtString) {
     const { status: requestStatus, data, fetch } = useApi();
     //const [personFull, setPersonFull] = useState<PersonFull | null>(null)
-    const personFull = (isPersonResponse(data) && data.person) || null;
+    const personFull = data // (isPersonResponse(data) && data.person) || null;
     const status = requestStatus === "fulfilled" && personFull == null ? "rejected" : requestStatus
     return {
         request() {
-            fetch(`/api/person/${id}`, {
+            fetch(`${process.env.NEXT_PUBLIC_API}/supervisor?id=${id}`, {
                 headers: { authorization: `Bearer ${jwt}` },
             });
         },

@@ -6,5 +6,5 @@ export default function isLoginResponse(data: any): data is LoginResponse {
     if (data == null) return false
     if (typeof data !== "object") return false
     if (data.status !== "ok") return false
-    return isJwtString(data.jwt) && isPerson(data.person)
+    return true || isJwtString(data.jwt) && isPerson(data.person)
 }
