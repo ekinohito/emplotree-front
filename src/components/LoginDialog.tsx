@@ -9,6 +9,7 @@ import {
     Button,
 } from "@mui/material";
 import React, { useState } from "react";
+import useTokens from "src/hooks/useTokens";
 
 export default function LoginDialog({
     open,
@@ -19,38 +20,41 @@ export default function LoginDialog({
     onClose: () => void;
     login: (email: string, password: string) => void;
 }) {
+    const {LOGIN, LOGIN_PROMPT, EMAIL, PASSWORD} = useTokens()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     return (
         <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Login</DialogTitle>
+            <DialogTitle sx={{textTransform: "capitalize"}}>{LOGIN}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Please, provide your email and password to login
+                    {LOGIN_PROMPT}
                 </DialogContentText>
                 <Stack spacing={1}>
                     <TextField
                         variant="standard"
-                        label="email"
+                        label={EMAIL}
                         type="email"
                         value={email}
                         onChange={(event) =>
                             setEmail(event.currentTarget.value)
                         }
+                        sx={{textTransform: "capitalize"}}
                     />
                     <TextField
                         variant="standard"
-                        label="password"
+                        label={PASSWORD}
                         type="password"
                         onChange={(event) =>
                             setPassword(event.currentTarget.value)
                         }
+                        sx={{textTransform: "capitalize"}}
                     />
                 </Stack>
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={() => login(email, password)}>
-                    Login
+                    {LOGIN}
                 </Button>
             </DialogActions>
         </Dialog>

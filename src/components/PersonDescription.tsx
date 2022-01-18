@@ -4,7 +4,7 @@ import PersonPanel from "./PersonPanel";
 
 export default function PersonDescription({ person, jwt }: { person: PersonFull, jwt: JwtString }) {
     return <>
-        details: {person.details}
+        email: {(person as any).email}
         {person.subordinates.map(subordinate => <PersonPanel key={subordinate.id} person={subordinate} jwt={jwt} />)}
     </>;
 }

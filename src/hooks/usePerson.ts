@@ -8,7 +8,8 @@ import useApi from "./useApi";
 export default function usePerson(id: PersonId, jwt: JwtString) {
     const { status: requestStatus, data, fetch } = useApi();
     //const [personFull, setPersonFull] = useState<PersonFull | null>(null)
-    const personFull = data // (isPersonResponse(data) && data.person) || null;
+    const personFull = data?.person // (isPersonResponse(data) && data.person) || null;
+    personFull && ( personFull.subordinates = data?.subordinates)
     const status = requestStatus === "fulfilled" && personFull == null ? "rejected" : requestStatus
     return {
         request() {

@@ -9,6 +9,7 @@ import {
     Button,
 } from "@mui/material";
 import React, { useState } from "react";
+import useTokens from "src/hooks/useTokens";
 
 export default function RegisterDialog({
     open,
@@ -19,20 +20,22 @@ export default function RegisterDialog({
     onClose: () => void;
     register: (email: string, password: string, name: string) => void;
 }) {
+    const {REGISTER, REGISTER_PROMPT, NAME, EMAIL, PASSWORD} = useTokens()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     return (
         <Dialog open={open} onClose={onClose}>
-            <DialogTitle>Register</DialogTitle>
+            <DialogTitle sx={{textTransform: "capitalize"}}>{REGISTER}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Please, provide your email and password to register
+                    {REGISTER_PROMPT}
                 </DialogContentText>
                 <Stack spacing={1}>
                     <TextField
+                        sx={{textTransform: "capitalize"}}
                         variant="standard"
-                        label="email"
+                        label={EMAIL}
                         type="email"
                         value={email}
                         onChange={(event) =>
@@ -40,8 +43,9 @@ export default function RegisterDialog({
                         }
                     />
                     <TextField
+                        sx={{textTransform: "capitalize"}}
                         variant="standard"
-                        label="password"
+                        label={PASSWORD}
                         type="password"
                         value={password}
                         onChange={(event) =>
@@ -49,8 +53,9 @@ export default function RegisterDialog({
                         }
                     />
                     <TextField
+                        sx={{textTransform: "capitalize"}}
                         variant="standard"
-                        label="name"
+                        label={NAME}
                         type="text"
                         value={name}
                         onChange={(event) =>
@@ -61,7 +66,7 @@ export default function RegisterDialog({
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" onClick={() => register(email, password, name)}>
-                    Register
+                    {REGISTER}
                 </Button>
             </DialogActions>
         </Dialog>
