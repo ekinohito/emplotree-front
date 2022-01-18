@@ -7,14 +7,15 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    Link,
     Stack,
+    Stepper,
     TextField,
     Toolbar,
     Typography,
 } from "@mui/material";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import LoginDialog from "src/components/LoginDialog";
 import PersonAvatarAndName from "src/components/PersonAvatarAndName";
@@ -23,11 +24,12 @@ import RegisterDialog from "src/components/RegisterDialog";
 import useLogin from "src/hooks/useLogin";
 import useRegister from "src/hooks/useRegister";
 import useTokens from "src/hooks/useTokens";
+import NextLink from 'next/link'
 
 const Home: NextPage = () => {
-    const {EMPLOTREE, LOGIN, REGISTER, LOGOUT} = useTokens()
+    const {EMPLOTREE, LOGIN, REGISTER, LOGOUT, LOGIN_FIRST} = useTokens()
     const { jwt, person, login, logout } = useLogin();
-    const { status, register } = useRegister(login);
+    const { register } = useRegister(login);
     const [loginDialogOpen, setLoginDialogOpen] = useState(false);
     const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
     const loggedIn = jwt != null && person != null;
@@ -47,9 +49,14 @@ const Home: NextPage = () => {
             </Head>
             <AppBar position="sticky">
                 <Toolbar>
-                    <Typography variant="h4" flexGrow={1} sx={{textTransform: "capitalize"}}>
-                        {EMPLOTREE}
-                    </Typography>
+                    <Stack direction="row" spacing={2} alignItems="center" flexGrow={1}>
+                        <Typography variant="h4" sx={{textTransform: "capitalize"}}>
+                            {EMPLOTREE}
+                        </Typography>
+                        <Link variant="h6" color="#eee"><NextLink href="." locale="ru">ru</NextLink></Link>
+                        <Link variant="h6" color="#eee"><NextLink href="." locale="en">en</NextLink></Link>
+                    </Stack>
+                    
                     {!loggedIn ? (
                         <>
                             <Button
@@ -90,7 +97,7 @@ const Home: NextPage = () => {
                 register={register}
             />
             <Container sx={{ paddingTop: 4 }}>
-                {loggedIn && <PersonPanel person={person} jwt={jwt} />}
+                {loggedIn ? <PersonPanel person={person} jwt={jwt} /> : LOGIN_FIRST}
             </Container>
         </div>
     );
