@@ -38,7 +38,7 @@ export default function PersonPanel({
                     {person.infoComplete ? (
                         person.details
                     ) : status === "fulfilled" && personFull != undefined ? (
-                        <PersonDescription person={personFull} jwt={jwt} />
+                        <PersonDescription person={personFull} jwt={jwt} request={request} />
                     ) : (
                         <CircularProgress />
                     )}

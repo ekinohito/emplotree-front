@@ -53,8 +53,8 @@ const Home: NextPage = () => {
                         <Typography variant="h4" sx={{textTransform: "capitalize"}}>
                             {EMPLOTREE}
                         </Typography>
-                        <Link variant="h6" color="#eee"><NextLink href="." locale="ru">ru</NextLink></Link>
-                        <Link variant="h6" color="#eee"><NextLink href="." locale="en">en</NextLink></Link>
+                        <NextLink passHref href="." locale="ru"><Link variant="h6" color="#eee">ru</Link></NextLink>
+                        <NextLink passHref href="." locale="en"><Link variant="h6" color="#eee">en</Link></NextLink>
                     </Stack>
                     
                     {!loggedIn ? (
